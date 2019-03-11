@@ -1,2 +1,2 @@
-public class EnumCase {
+public enum EnumCase {
 }
