@@ -1,2 +1,2 @@
-public class EnumHeuristique {
+public enum EnumHeuristique {
 }
