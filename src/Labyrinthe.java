@@ -1,10 +1,12 @@
 import java.io.*;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Labyrinthe {
     private Map<Integer, Map<Integer, Case>> lesCases;
     private Noeud depart;
+    private Algorithme algo;
 
     /**
      * Constructeur
@@ -40,7 +42,6 @@ public class Labyrinthe {
 
             while ((value = buff.read()) != -1){
                 char c = (char)value;
-
                 switch (c) {
                     case '\n':
                         y += 1;
@@ -53,7 +54,7 @@ public class Labyrinthe {
                         break;
                     case 'E':
                         this.addCase(new Case(x,y, EnumCase.ENTREE));
-                        depart = new Noeud(this, null, EnumAction.RIEN,0,0);
+                        depart = new Noeud(this, null, EnumAction.RIEN,0,0,new Case(x,y, EnumCase.ENTREE));
                         //System.out.println(c+" "+x+" "+y);
                         x += 1;
                         break;
@@ -101,4 +102,16 @@ public class Labyrinthe {
     public Noeud getDepart() {
         return depart;
     }
+
+    public void setAlgo(Algorithme algo) {
+        this.algo = algo;
+    }
+
+    public void explorerLaby(){
+        LinkedList<Noeud> frontiere = new LinkedList<>();
+        frontiere.add(depart);
+        //TODO 
+
+    }
+
 }
