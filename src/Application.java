@@ -16,6 +16,7 @@ public class Application {
 
         laby.init("TESTlaby.txt");
         laby.lireLaby();
+        System.out.println(laby.getDepart());
 
     }
 }
