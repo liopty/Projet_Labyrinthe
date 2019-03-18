@@ -17,7 +17,7 @@ public class Application {
 
         laby.init("labyrinthe/labExemple.lab");
         laby.lireLaby();
-        System.out.println(laby.getDepart());
+        laby.explorerLaby();
 
     }
 }

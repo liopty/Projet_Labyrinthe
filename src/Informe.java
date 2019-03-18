@@ -12,10 +12,6 @@ public class Informe implements Algorithme {
         this.heuristique=heuristique;
     }
 
-    @Override
-    public Noeud explore(Labyrinthe probleme, Collection<Noeud> frontiere) {
-        return null;
-    }
-
+ 
 
 }

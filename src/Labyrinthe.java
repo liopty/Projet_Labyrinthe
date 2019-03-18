@@ -110,7 +110,11 @@ public class Labyrinthe {
     public void explorerLaby(){
         LinkedList<Noeud> frontiere = new LinkedList<>();
         frontiere.add(depart);
-        //TODO 
+
+
+        System.out.println(frontiere.getFirst());
+        //Case caseHaut =
+        //TODO
 
     }
 
