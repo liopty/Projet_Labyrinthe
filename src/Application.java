@@ -14,7 +14,7 @@ public class Application {
 
         Labyrinthe laby = new Labyrinthe();
 
-        laby.init("TESTlaby.txt");
+        laby.init("labyrinthe/labExemple.lab");
         laby.lireLaby();
         System.out.println(laby.getDepart());
 

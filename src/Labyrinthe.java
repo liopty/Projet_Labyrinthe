@@ -6,10 +6,17 @@ public class Labyrinthe {
     private Map<Integer, Map<Integer, Case>> lesCases;
     private Noeud depart;
 
+    /**
+     * Constructeur
+     */
     public Labyrinthe() {
         this.lesCases = new HashMap<>();
     }
 
+    /**
+     * Ajouter une case au labyrinthe
+     * @param c Case à ajouter
+     */
     private void addCase(Case c) {
         if (!lesCases.containsKey(c.getX())){
             lesCases.put(c.getX(), new HashMap<>());
@@ -17,6 +24,10 @@ public class Labyrinthe {
         lesCases.get(c.getX()).put(c.getY(), c);
     }
 
+    /**
+     * Initialise le labyrinthe à partir d'un fichier
+     * @param filePath path du fichier contenant le paterne du laby
+     */
     public void init(String filePath){
         try{
             InputStream flux=new FileInputStream(filePath);
@@ -68,6 +79,9 @@ public class Labyrinthe {
         }
     }
 
+    /**
+     * Renvoie les coordonnées et le type de chaques cases dans la console
+     */
     public void lireLaby(){
 
         for(Map.Entry<Integer, Map<Integer, Case>> entry : lesCases.entrySet()) {
@@ -80,6 +94,10 @@ public class Labyrinthe {
         }
     }
 
+    /**
+     * Obtenir le noeud de départ
+     * @return le noeud de départ
+     */
     public Noeud getDepart() {
         return depart;
     }
