@@ -3,10 +3,19 @@ import java.util.Map;
 
 public class Application {
     public static void main(String[] args) {
-        System.out.println("test");
-        Map<Integer, Map<Integer, Case>> lesCases;
-        lesCases = new HashMap<>();
+        Map<Integer, Map<Integer, Case>> lesCases = new HashMap<>();
+
         Case maCase = new Case(1,1,EnumCase.VIDE);
-        lesCases.put(1,new HashMap<Integer, Case>(1, maCase));
+
+        lesCases.put(maCase.getX(),new HashMap<Integer, Case>());
+        lesCases.get(maCase.getY()).put(1, maCase);
+
+        System.out.println(lesCases.get(maCase.getX()).get(maCase.getY()));
+
+        Labyrinthe laby = new Labyrinthe();
+
+        laby.init("TESTlaby.txt");
+        laby.lireLaby();
+
     }
 }
