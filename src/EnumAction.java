@@ -5,5 +5,6 @@ public enum EnumAction {
     HAUT,
     BAS,
     GAUCHE,
-    DROITE
+    DROITE,
+    RIEN
 }
