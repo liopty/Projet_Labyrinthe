@@ -1,5 +1,6 @@
+import java.util.Collection;
 import java.util.List;
 
 public interface Algorithme {
-    public List<Case> recherche();
+    Noeud explore(Labyrinthe probleme, Collection<Noeud> frontiere);
 }
