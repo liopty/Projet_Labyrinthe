@@ -1,4 +1,5 @@
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Informe implements Algorithme {
@@ -12,6 +13,8 @@ public class Informe implements Algorithme {
         this.heuristique=heuristique;
     }
 
- 
-
+    @Override
+    public LinkedList<Noeud> add(LinkedList<Noeud> frontiere, LinkedList<Noeud> noeud) {
+        return null;
+    }
 }

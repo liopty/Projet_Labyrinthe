@@ -17,7 +17,7 @@ public class Application {
 
         laby.init("labyrinthe/labExemple.lab");
         laby.lireLaby();
-        laby.explorerLaby();
-
+        //laby.explorerLaby(new Profondeur(),"labyrinthe/labExemple.lab");
+        laby.explorerLaby(new Largeur(),"labyrinthe/labExemple.lab");
     }
 }
