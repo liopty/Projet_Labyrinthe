@@ -1,9 +1,6 @@
 import java.io.*;
 import java.sql.SQLOutput;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class Labyrinthe {
     private Map<Integer, Map<Integer, Case>> lesCases;
@@ -59,7 +56,7 @@ public class Labyrinthe {
                         break;
                     case 'E':
                         this.addCase(new Case(x,y, EnumCase.ENTREE));
-                        depart = new Noeud(this, null, EnumAction.RIEN,0,0,new Case(x,y, EnumCase.ENTREE));
+                        depart = new Noeud(this, null,new ArrayList<>(),0,0,new Case(x,y, EnumCase.ENTREE));
                         //System.out.println(c+" "+x+" "+y);
                         x += 1;
                         break;
@@ -120,8 +117,6 @@ public class Labyrinthe {
         LinkedList<Noeud> frontiere = new LinkedList<>();
         //on y ajoute le noeud de départ
         frontiere.add(depart);
-        //on initialise la liste qui contiendra toutes les actions effectuées pour atteindre la sortie
-        LinkedList<EnumAction> actions = new LinkedList<>();
         //on initialise le nombre de noeuds créés à 1 (Le noeud de départ)
         int nbNoeudsCree = 1;
 
@@ -130,6 +125,7 @@ public class Labyrinthe {
 
             //on initialise la liste qui contient les noeuds à ajouter à la frontière
             LinkedList<Noeud> lesNoeuds = new LinkedList<>();
+
             //on récupère le noeud à développer
             Noeud noeudActuel = frontiere.getFirst();
 
@@ -143,71 +139,83 @@ public class Labyrinthe {
             //on récupère le X et le Y de la case actuelle
             int caseActuelleY = caseActuelle.getY();
             int caseActuelleX = caseActuelle.getX();
+            //on récupère les actions (haut bas droite gauche) pour le chemin final
+            ArrayList<EnumAction> lesActions = noeudActuel.getAction();
+
 
             //on vérifie si il y a une case au dessus
             if (caseActuelleY > 0) {
                 //On récupère la case du dessus à partir de la map qui contient toutes les cases du laby
                 caseHaut = lesCases.get(caseActuelleX).get(caseActuelleY - 1);
+                //on ajoute la nouvelle action
+                lesActions.add(EnumAction.HAUT);
                 //On créé un noeud et on l'ajoute à la liste des noeuds potentiels
-                lesNoeuds.add(new Noeud(this, noeudActuel, EnumAction.HAUT, 1, noeudActuel.getProfondeur() + 1, caseHaut));
+                lesNoeuds.add(new Noeud(this, noeudActuel, lesActions, 1, noeudActuel.getProfondeur() + 1, caseHaut));
+                //on retire la nouvelle action ajoutée pour qu'elle ne soit pas ajoutée aux autres sommets développés lors de ce tour de boucle
+                lesActions.remove(lesActions.size()-1);
             }
             //on vérifie si il y a une case en dessous
             if (caseActuelleY < maxY) {
                 //On récupère la case du dessous à partir de la map qui contient toutes les cases du laby
                 caseBas = lesCases.get(caseActuelleX).get(caseActuelleY + 1);
+                //on ajoute la nouvelle action
+                lesActions.add(EnumAction.BAS);
                 //On créé un noeud et on l'ajoute à la liste des noeuds potentiels
-                lesNoeuds.add(new Noeud(this, noeudActuel, EnumAction.BAS, 1, noeudActuel.getProfondeur() + 1, caseBas));
+                lesNoeuds.add(new Noeud(this, noeudActuel, lesActions, 1, noeudActuel.getProfondeur() + 1, caseBas));
+                //on retire la nouvelle action ajoutée pour qu'elle ne soit pas ajoutée aux autres sommets développés lors de ce tour de boucle
+                lesActions.remove(lesActions.size()-1);
             }
             //on vérifie si il y a une case à gauche
             if (caseActuelleX > 0) {
                 //On récupère la case de gauche à partir de la map qui contient toutes les cases du laby
                 caseGauche = lesCases.get(caseActuelleX - 1).get(caseActuelleY);
+                //on ajoute la nouvelle action
+                lesActions.add(EnumAction.GAUCHE);
                 //On créé un noeud et on l'ajoute à la liste des noeuds potentiels
-                lesNoeuds.add(new Noeud(this, noeudActuel, EnumAction.GAUCHE, 1, noeudActuel.getProfondeur() + 1, caseGauche));
+                lesNoeuds.add(new Noeud(this, noeudActuel, lesActions, 1, noeudActuel.getProfondeur() + 1, caseGauche));
+                //on retire la nouvelle action ajoutée pour qu'elle ne soit pas ajoutée aux autres sommets développés lors de ce tour de boucle
+                lesActions.remove(lesActions.size()-1);
 
             }
             //on vérifie si il y a une case à droite
             if (caseActuelleX < maxX) {
                 //On récupère la case de droite à partir de la map qui contient toutes les cases du laby
                 caseDroite = lesCases.get(caseActuelleX + 1).get(caseActuelleY);
+                //on ajoute la nouvelle action
+                lesActions.add(EnumAction.DROITE);
                 //On créé un noeud et on l'ajoute à la liste des noeuds potentiels
-                lesNoeuds.add(new Noeud(this, noeudActuel, EnumAction.DROITE, 1, noeudActuel.getProfondeur() + 1, caseDroite));
+                lesNoeuds.add(new Noeud(this, noeudActuel, lesActions, 1, noeudActuel.getProfondeur() + 1, caseDroite));
+                //on retire la nouvelle action ajoutée pour qu'elle ne soit pas ajoutée aux autres sommets développés lors de ce tour de boucle
+                lesActions.remove(lesActions.size()-1);
 
             }
 
 
-            System.out.println(lesCases.get(1).get(0).isVisite());
+
             //on retire toutes les cases adjacentes qui ne sont pas/plus visitables (Mur, case déjà dans frontiere, case déjà explorée) de la liste contenant les noeuds à ajouter à la frontière
             lesNoeuds.removeIf(monNoeud -> !lesCases.get(monNoeud.getLacase().getX()).get(monNoeud.getLacase().getY()).isVisite());
             //on incrémente le nombre total de noeuds créés
             nbNoeudsCree += lesNoeuds.size();
 
-
-            System.out.println(frontiere);
-            //Pour tous les noeuds de la frontière on change l'attribut des cases du laby correspondantes pour les rendre non visitables
-            for (Noeud n : frontiere) {
-                lesCases.get(n.getLacase().getX()).get(n.getLacase().getY()).setVisite(false);
-                System.out.println(n+ " "+n.getLacase().getX()+" "+n.getLacase().getY());
-
-            }
-
-            //on ajoute l'action effectuée à la liste d'actions
-            actions.add(noeudActuel.getAction());
             //On retire le noeud que l'on vient de développer
             frontiere.removeFirst();
             //on ajoute les nouveaux noeuds à la frontière, l'ajout est différent selon l'algorithme passé en param
             frontiere = algo.add(frontiere, lesNoeuds);
+
+            //Pour tous les noeuds de la frontière on change l'attribut des cases du laby correspondantes pour les rendre non visitables
+            for (Noeud n : frontiere) {
+                lesCases.get(n.getLacase().getX()).get(n.getLacase().getY()).setVisite(false);
+            }
+
+
         }
-        //on ajoute la dernière action
-        actions.add(frontiere.getFirst().getAction());
-        //on supprime la première action qui corespond à l'entrée du Labyrinthe
-        actions.removeFirst();
+
 
         System.out.println(" ");
         System.out.println("Algorithme : "+algo.getClass());
         System.out.println("nbNoeudsCree "+nbNoeudsCree);
         System.out.println("longueur chemin "+frontiere.getFirst().getProfondeur());
-        System.out.println("Actions "+actions);
+        System.out.println("Actions "+frontiere.getFirst().getAction());
 
 
 

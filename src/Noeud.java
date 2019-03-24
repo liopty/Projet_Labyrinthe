@@ -1,18 +1,20 @@
+import java.util.ArrayList;
+
 /**
  * Classe qui va être utilisée afin de generer l'arbre de recherche
  */
 public class Noeud {
     private Labyrinthe etat;
     private Noeud noeudParent;
-    private EnumAction action;
+    private ArrayList<EnumAction> action = new ArrayList<>();
     private int coutDuChemin;
     private int profondeur;
     private Case lacase;
 
-    public Noeud(Labyrinthe etat, Noeud noeudParent, EnumAction action, int coutDuChemin, int profondeur, Case lacase) {
+    public Noeud(Labyrinthe etat, Noeud noeudParent, ArrayList<EnumAction> action, int coutDuChemin, int profondeur, Case lacase) {
         this.etat = etat;
         this.noeudParent = noeudParent;
-        this.action = action;
+        this.action.addAll(action);
         this.coutDuChemin = coutDuChemin;
         this.profondeur = profondeur;
         this.lacase = lacase;
@@ -34,11 +36,11 @@ public class Noeud {
         this.noeudParent = noeudParent;
     }
 
-    public EnumAction getAction() {
+    public ArrayList<EnumAction> getAction() {
         return action;
     }
 
-    public void setAction(EnumAction action) {
+    public void setAction(ArrayList action) {
         this.action = action;
     }
 

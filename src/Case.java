@@ -14,7 +14,7 @@ public class Case {
     public Case(int x, int y, EnumCase type) {
         this.x = x;
         this.y = y;
-        if (type == EnumCase.MUR){
+        if (type == EnumCase.MUR || type == EnumCase.ENTREE){
             this.visitable = false;
         } else {
             this.visitable = true;
