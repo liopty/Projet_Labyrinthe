@@ -110,9 +110,7 @@ public class Labyrinthe {
 
     public void explorerLaby(Algorithme algo, String filepath) {
         //on initialise le laby
-        this.init("labyrinthe/labExemple.lab");
-        //on sauvegarde le labyrinthe de base
-        Map<Integer, Map<Integer, Case>> saveLaby = lesCases;
+        this.init(filepath);
         //on initialise la frontière qui contiendra les noeuds
         LinkedList<Noeud> frontiere = new LinkedList<>();
         //on y ajoute le noeud de départ
@@ -190,8 +188,6 @@ public class Labyrinthe {
 
             }
 
-
-
             //on retire toutes les cases adjacentes qui ne sont pas/plus visitables (Mur, case déjà dans frontiere, case déjà explorée) de la liste contenant les noeuds à ajouter à la frontière
             lesNoeuds.removeIf(monNoeud -> !lesCases.get(monNoeud.getLacase().getX()).get(monNoeud.getLacase().getY()).isVisite());
             //on incrémente le nombre total de noeuds créés
@@ -206,18 +202,13 @@ public class Labyrinthe {
             for (Noeud n : frontiere) {
                 lesCases.get(n.getLacase().getX()).get(n.getLacase().getY()).setVisite(false);
             }
-
-
         }
-
 
         System.out.println(" ");
         System.out.println("Algorithme : "+algo.getClass());
         System.out.println("nbNoeudsCree "+nbNoeudsCree);
         System.out.println("longueur chemin "+frontiere.getFirst().getProfondeur());
         System.out.println("Actions "+frontiere.getFirst().getAction());
-
-
 
     }
 

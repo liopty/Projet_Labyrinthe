@@ -15,9 +15,8 @@ public class Application {
 
         Labyrinthe laby = new Labyrinthe();
 
-        laby.init("labyrinthe/labExemple.lab");
         laby.lireLaby();
-        laby.explorerLaby(new Profondeur(),"labyrinthe/labExemple.lab");
-        laby.explorerLaby(new Largeur(),"labyrinthe/labExemple.lab");
+        laby.explorerLaby(new Profondeur(),"labyrinthe/TESTlaby.lab");
+        laby.explorerLaby(new Largeur(),"labyrinthe/TESTlaby.lab");
     }
 }
