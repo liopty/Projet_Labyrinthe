@@ -115,6 +115,12 @@ public class Labyrinthe {
     public void explorerLaby(Algorithme algo, String filepath) {
         //on initialise le laby
         this.init(filepath);
+
+        //on calcul les distance pour chaques cases si on utilise une méthode informe
+        if (algo instanceof Informe) this.calculDistancePourInforme((Informe)algo);
+
+
+
         //on initialise la frontière qui contiendra les noeuds
         LinkedList<Noeud> frontiere = new LinkedList<>();
         //on y ajoute le noeud de départ
@@ -210,9 +216,12 @@ public class Labyrinthe {
 
         System.out.println(" ");
         System.out.println("Algorithme : "+algo.getClass());
+        if (algo instanceof Informe) System.out.println("Heuristique : "+ ((Informe) algo).getHeuristique().getClass());
         System.out.println("nbNoeudsCree "+nbNoeudsCree);
         System.out.println("longueur chemin "+frontiere.getFirst().getProfondeur());
         System.out.println("Actions "+frontiere.getFirst().getAction());
+
+
 
     }
 

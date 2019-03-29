@@ -1,4 +1,5 @@
 
+import javax.sound.sampled.Line;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +16,17 @@ public class Application {
 
         Labyrinthe laby = new Labyrinthe();
 
-        laby.lireLaby();
-        laby.explorerLaby(new Profondeur(),"labyrinthe/TESTlaby.lab");
-        laby.explorerLaby(new Largeur(),"labyrinthe/TESTlaby.lab");
+        Informe eucli = new Informe(new Euclidienne());
+        Informe manhattan = new Informe(new Manhattan());
+
+        laby.explorerLaby(new Profondeur(),"labyrinthe/labExemple.lab");
+        laby.explorerLaby(new Largeur(),"labyrinthe/labExemple.lab");
+
+        laby.calculDistancePourInforme(eucli);
+        laby.explorerLaby(eucli,"labyrinthe/labExemple.lab" );
+
+        laby.calculDistancePourInforme(manhattan);
+        laby.explorerLaby(manhattan,"labyrinthe/labExemple.lab" );
+
     }
 }
