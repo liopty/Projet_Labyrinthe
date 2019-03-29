@@ -5,6 +5,7 @@ import java.util.*;
 public class Labyrinthe {
     private Map<Integer, Map<Integer, Case>> lesCases;
     private Noeud depart;
+    private Case sortie;
     private int maxX;
     private int maxY;
 
@@ -62,6 +63,7 @@ public class Labyrinthe {
                         break;
                     case 'S':
                         this.addCase(new Case(x,y, EnumCase.SORTIE));
+                        sortie = new Case(x,y, EnumCase.SORTIE);
                         //System.out.println(c+" "+x+" "+y);
                         x += 1;
                         break;
@@ -106,7 +108,9 @@ public class Labyrinthe {
         return depart;
     }
 
-
+    public void calculDistancePourInforme(Informe informe){
+        this.lesCases = informe.calculDist(this.lesCases, sortie);
+    }
 
     public void explorerLaby(Algorithme algo, String filepath) {
         //on initialise le laby

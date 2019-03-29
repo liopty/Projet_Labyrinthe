@@ -2,7 +2,7 @@ public class Case {
     private int x;
     private int y;
     private boolean visitable;
-    private int distance;
+    private Double distance;
     private EnumCase type;
 
     /**
@@ -20,7 +20,7 @@ public class Case {
             this.visitable = true;
         }
         this.type = type;
-        this.distance = 0;
+        this.distance = 0.0;
     }
 
     /**
@@ -59,7 +59,7 @@ public class Case {
      * Obtenir la distance, la distance est calculée par une autre classe selon l'heuristique
      * @return la distance
      */
-    public int getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
@@ -67,7 +67,7 @@ public class Case {
      * Modifier la distance, la distance est calculée par une autre classe selon l'heuristique
      * @param distance la distance
      */
-    public void setDistance(int distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
     }
 
