@@ -221,8 +221,6 @@ public class Labyrinthe {
         System.out.println("longueur chemin "+frontiere.getFirst().getProfondeur());
         System.out.println("Actions "+frontiere.getFirst().getAction());
 
-
-
     }
 
 }
