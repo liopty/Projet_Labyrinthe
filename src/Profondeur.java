@@ -4,6 +4,12 @@ import java.util.LinkedList;
 
 public class Profondeur implements Algorithme {
 
+    /**
+     * Permet d'ajouter une liste de noeuds à la frontière
+     * @param frontiere liste des noeuds à explorer
+     * @param noeud liste des nouveaux noeuds à explorer
+     * @return la nouvelle frontière
+     */
     @Override
     public LinkedList<Noeud> add(LinkedList<Noeud> frontiere, LinkedList<Noeud> noeud) {
 
