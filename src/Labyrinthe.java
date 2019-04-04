@@ -8,6 +8,7 @@ public class Labyrinthe {
     private Case sortie;
     private int maxX;
     private int maxY;
+    private String resulCsv;
 
     /**
      * Constructeur
@@ -113,13 +114,15 @@ public class Labyrinthe {
     }
 
     public void explorerLaby(Algorithme algo, String filepath) {
+
         //on initialise le laby
         this.init(filepath);
 
         //on calcul les distance pour chaques cases si on utilise une méthode informe
         if (algo instanceof Informe) this.calculDistancePourInforme((Informe)algo);
 
-
+        //vérifie que la sortie est atteignable
+        Boolean POSSIBLE = true;
 
         //on initialise la frontière qui contiendra les noeuds
         LinkedList<Noeud> frontiere = new LinkedList<>();
@@ -129,7 +132,7 @@ public class Labyrinthe {
         int nbNoeudsCree = 1;
 
         //Tant que le premier élément de la frontière n'est pas une case de type sortie
-        while (frontiere.getFirst().getLacase().getType() != EnumCase.SORTIE) {
+        while (POSSIBLE && frontiere.getFirst().getLacase().getType() != EnumCase.SORTIE) {
 
             //on initialise la liste qui contient les noeuds à ajouter à la frontière
             LinkedList<Noeud> lesNoeuds = new LinkedList<>();
@@ -212,15 +215,32 @@ public class Labyrinthe {
             for (Noeud n : frontiere) {
                 lesCases.get(n.getLacase().getX()).get(n.getLacase().getY()).setVisite(false);
             }
+
+            //si la frontière est vide => laby impossible
+            if(frontiere.isEmpty()) POSSIBLE = false;
         }
 
-        System.out.println(" ");
-        System.out.println("Algorithme : "+algo.getClass());
-        if (algo instanceof Informe) System.out.println("Heuristique : "+ ((Informe) algo).getHeuristique().getClass());
-        System.out.println("nbNoeudsCree "+nbNoeudsCree);
-        System.out.println("longueur chemin "+frontiere.getFirst().getProfondeur());
-        System.out.println("Actions "+frontiere.getFirst().getAction());
 
+        String[] algoStr = algo.getClass().toString().split(" ");
+        //System.out.println(" ");
+        //resulCsv = algoStr[1];
+        //System.out.println("Algorithme : "+algoStr[1]);
+        if (algo instanceof Informe){
+            String[] heuriStr = ((Informe) algo).getHeuristique().getClass().toString().split(" ");
+            //System.out.println("Heuristique : "+ heuriStr[1]);
+            //resulCsv += ";"+heuriStr[1];
+        }
+       // System.out.println("nbNoeudsCree "+nbNoeudsCree);
+        //System.out.println("longueur chemin "+frontiere.getFirst().getProfondeur());
+        //System.out.println("Actions "+frontiere.getFirst().getAction());
+        //frontiere.getFirst().getProfondeur()   +1 car la profondeur du noeud de départ est 1 pas 0
+        if (POSSIBLE) resulCsv = nbNoeudsCree+";"+(frontiere.getFirst().getProfondeur()+1)+";"+frontiere.getFirst().getAction();
+        else resulCsv = nbNoeudsCree+";"+0+";aucun chemin";
+
+    }
+
+    public String getResultatCSV(){
+        return this.resulCsv;
     }
 
 }
