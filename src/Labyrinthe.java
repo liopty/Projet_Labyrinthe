@@ -234,8 +234,24 @@ public class Labyrinthe {
         //System.out.println("longueur chemin "+frontiere.getFirst().getProfondeur());
         //System.out.println("Actions "+frontiere.getFirst().getAction());
         //frontiere.getFirst().getProfondeur()   +1 car la profondeur du noeud de départ est 1 pas 0
-        if (POSSIBLE) resulCsv = nbNoeudsCree+";"+(frontiere.getFirst().getProfondeur()+1)+";"+frontiere.getFirst().getAction();
-        else resulCsv = nbNoeudsCree+";"+0+";aucun chemin";
+        String actions = "";
+        if (POSSIBLE) {
+            for (EnumAction a:  frontiere.getFirst().getAction()) {
+                switch (a){
+                    case BAS: actions += "bas->";
+                        break;
+                    case HAUT: actions += "haut->";
+                        break;
+                    case DROITE: actions +="droite->";
+                        break;
+                    case GAUCHE: actions +="gauche->";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            resulCsv = nbNoeudsCree+";"+(frontiere.getFirst().getProfondeur()+1)+";"+actions.substring(0, actions.length() - 2);
+        } else resulCsv = nbNoeudsCree+";"+0+";aucun chemin";
 
     }
 
